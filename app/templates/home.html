@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center my-3">
+    <div class="col-md-8">
+        <div class="card">
+            <nav class="navbar navbar-expand-lg navbar-light bg-success">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Weather</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                </a>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="card-body">
+                <h1 class="card-title text-center">WEATHER APP</h1>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" required class="form-control" name="city" placeholder="Search city...">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </div>
+                </form>
+                <hr>      
+                {% if city_weather_update %}
+                <div class="card bg-success">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="http://openweathermap.org/img/w/{{ city_weather_update.icon }}.png" alt="Weather Icon" class="img-fluid">
+                            </div>
+                            <div class="col-md-9">
+                                <h5 class="card-title">{{ city_weather_update.city }}, {{ city_weather_update.country_code }}</h5>
+                                <p class="card-text">Time: {{ city_weather_update.time }}</p>
+                                <p class="card-text">Temperature: {{ city_weather_update.temperature }}</p>
+                                <p class="card-text">Description: {{ city_weather_update.description | title }}</p>
+                                <p class="card-text">Wind: {{ city_weather_update.wind }}</p>
+                                <p class="card-text">Humidity: {{ city_weather_update.humidity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% elif error_message %}
+                <div class="alert alert-danger mt-4" role="alert">
+                    {{ error_message }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer mt-auto py-3">
+  <div class="container text-center">
+      <span class="text-muted">Connect with us on social media:</span>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+      </ul>
+      <p>&copy; 2024 Weather App. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+{% endblock %}
+
+
+
